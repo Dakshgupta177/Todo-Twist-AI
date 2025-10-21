@@ -16,13 +16,11 @@ import { Input } from "@/components/ui/input";
 import axios, { AxiosError } from "axios";
 import { signinSchemaValidation } from "@/schemas/signinSchema";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 import { Navbar } from "@/components/Navbar";
 import { useState } from "react";
 import { Loader } from "lucide-react";
 
 export default function SigninPage() {
-  const router = useRouter();
   const [loader, setLoader] = useState(false);
   const form = useForm<z.infer<typeof signinSchemaValidation>>({
     resolver: zodResolver(signinSchemaValidation),
@@ -46,7 +44,7 @@ export default function SigninPage() {
           onClick: () => {},
         },
       });
-      setTimeout(() => router.replace("/"), 300);
+      window.location.href = "/";
     } catch (error) {
       const axiosError = error as AxiosError<{ message?: string }>;
       console.error("Login Error:", axiosError);

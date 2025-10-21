@@ -16,14 +16,12 @@ import { Input } from "@/components/ui/input";
 import axios, { AxiosError } from "axios";
 import { signupSchemaValidation } from "@/schemas/signupSchema";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 import { Navbar } from "@/components/Navbar";
 import { useState } from "react";
 import { Loader } from "lucide-react";
 
 export default function SignupPage() {
-  const router = useRouter();
-  const [loader,setLoader] = useState(false);
+  const [loader, setLoader] = useState(false);
   const form = useForm<z.infer<typeof signupSchemaValidation>>({
     resolver: zodResolver(signupSchemaValidation),
     defaultValues: {
@@ -34,7 +32,7 @@ export default function SignupPage() {
   });
   const onSubmit = async (data: z.infer<typeof signupSchemaValidation>) => {
     try {
-      setLoader(true)
+      setLoader(true);
       const res = await axios.post("/api/user/signup", {
         username: data.username,
         email: data.email,
@@ -48,7 +46,7 @@ export default function SignupPage() {
           onClick: () => {},
         },
       });
-      setTimeout(() => router.replace("/"), 300);
+      window.location.href = "/";
     } catch (error) {
       const axiosError = error as AxiosError<{ message?: string }>;
       const errorDescription =
@@ -117,7 +115,10 @@ export default function SignupPage() {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border-0 rounded-full px-6 shadow-lg hover:shadow-xl transition-all">
+            <Button
+              type="submit"
+              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border-0 rounded-full px-6 shadow-lg hover:shadow-xl transition-all"
+            >
               Sign In
             </Button>
           </form>
@@ -125,9 +126,9 @@ export default function SignupPage() {
       </div>
       {loader && (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
-          <Loader className="font-bold size-20 animate-spin ease-in-out duration-300 z-50"/>
+          <Loader className="font-bold size-20 animate-spin ease-in-out duration-300 z-50" />
         </div>
-      )} 
+      )}
     </>
   );
 }

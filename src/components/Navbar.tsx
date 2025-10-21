@@ -5,12 +5,10 @@ import { useAuthStore } from "@/store/useAppStore";
 import axios, { AxiosError } from "axios";
 import { toast } from "sonner";
 import { Button } from "./ui/button";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export function Navbar() {
   const { isLoggedIn, fetchLogout, fetchLogin } = useAuthStore();
-  const router = useRouter();
   const isLogin = async () => {
     try {
       const res = await axios.get("/api/user/getuser");
@@ -47,7 +45,7 @@ export function Navbar() {
         },
       });
       fetchLogout();
-      setTimeout(() => router.replace("/signup"), 300);
+      window.location.href = "/signup";
     } catch (error) {
       const axiosError = error as AxiosError<{ message?: string }>;
       toast.error("Logout Failed", {
