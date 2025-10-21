@@ -11,24 +11,10 @@ export function Navbar() {
   const { isLoggedIn, fetchLogout, fetchLogin } = useAuthStore();
   const isLogin = async () => {
     try {
-      const res = await axios.get("/api/user/getuser");
-      toast.success("User Login Successfully", {
-        description: res.data.message || "",
-        action: {
-          label: "Got It",
-          onClick: () => {},
-        },
-      });
+      await axios.get("/api/user/getuser");
       fetchLogin();
     } catch (error) {
-      const axiosError = error as AxiosError<{ message?: string }>;
-      toast.error("Login Failed", {
-        description: axiosError.response?.data.message || "Something went wrong",
-        action: {
-          label: "Try Again",
-          onClick: () => {},
-        },
-      });
+      console.log(error);
     }
   };
   useEffect(() => {
@@ -49,7 +35,8 @@ export function Navbar() {
     } catch (error) {
       const axiosError = error as AxiosError<{ message?: string }>;
       toast.error("Logout Failed", {
-        description: axiosError.response?.data.message || "Something went wrong",
+        description:
+          axiosError.response?.data.message || "Something went wrong",
         action: {
           label: "Try Again",
           onClick: () => {},
