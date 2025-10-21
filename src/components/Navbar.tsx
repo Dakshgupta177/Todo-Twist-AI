@@ -47,7 +47,7 @@ export function Navbar() {
         },
       });
       fetchLogout();
-      router.replace("/signup");
+      setTimeout(() => router.replace("/signup"), 300);
     } catch (error) {
       const axiosError = error as AxiosError<{ message?: string }>;
       toast.error("Logout Failed", {

@@ -46,7 +46,7 @@ export default function SigninPage() {
           onClick: () => {},
         },
       });
-      router.replace("/");
+      setTimeout(() => router.replace("/"), 300);
     } catch (error) {
       const axiosError = error as AxiosError<{ message?: string }>;
       console.error("Login Error:", axiosError);

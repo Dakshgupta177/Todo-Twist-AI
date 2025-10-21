@@ -48,7 +48,7 @@ export default function SignupPage() {
           onClick: () => {},
         },
       });
-      router.replace("/");
+      setTimeout(() => router.replace("/"), 300);
     } catch (error) {
       const axiosError = error as AxiosError<{ message?: string }>;
       const errorDescription =
